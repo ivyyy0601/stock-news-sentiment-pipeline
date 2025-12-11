@@ -19,6 +19,9 @@ matplotlib
 
 # Time series / data sources
 yfinance
+# UI
+streamlit
+plotly
 
 # Airflow Operators (optional but recommended)
 apache-airflow-providers-http

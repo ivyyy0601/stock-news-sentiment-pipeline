@@ -10,7 +10,9 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 # ======== 项目路径 & Python 路径 ========
-PROJECT_DIR = Path("/Users/chenjiexin/Desktop/try").resolve()
+# Prefer env var PROJECT_DIR; fallback to repository root relative to this file.
+# airflow_home/dags/<this_file> → project root is two levels up.
+PROJECT_DIR = Path(os.environ.get("PROJECT_DIR", Path(__file__).resolve().parents[2])).resolve()
 PYTHON_BIN = sys.executable  # 当前 venv 里的 python
 
 
@@ -27,7 +29,7 @@ def run_script(script_rel_path: str) -> None:
     print(f"▶ Running script: {script_path}")
     print("=" * 80)
 
-    # 把环境变量传给子进程，并显式加入 ALPHAVANTAGE_API_KEY
+    # 传递当前环境变量到子进程；不硬编码 API key，改为读取环境变量
     env = os.environ.copy()
     env["ALPHAVANTAGE_API_KEY"] = "ZDOU31JUM67TI5K0"  # <<< 这里换成你的真实 key
 
