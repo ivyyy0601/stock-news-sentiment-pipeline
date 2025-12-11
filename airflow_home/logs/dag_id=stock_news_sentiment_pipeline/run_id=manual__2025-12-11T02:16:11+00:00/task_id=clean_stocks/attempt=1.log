@@ -1,0 +1,27 @@
+{"timestamp":"2025-12-11T02:16:18.211323Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-11T02:16:18.211579Z","level":"info","event":"Filling up the DagBag from /Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-11T02:16:18.214505Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","lineno":9,"logger":"py.warnings"}
+{"timestamp":"2025-12-11T02:16:18.221191Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.221234Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.221453Z","level":"info","event":"Current task name:clean_stocks","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.221472Z","level":"info","event":"Dag name:stock_news_sentiment_pipeline","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.222302Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.222329Z","level":"info","event":"▶ Running script: /Users/chenjiexin/Desktop/try/src/1_cleaning/clean_stocks.py","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.222346Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.393499Z","level":"error","event":"/Users/chenjiexin/Desktop/try/src/1_cleaning/clean_stocks.py:39: FutureWarning: The previous implementation of stack is deprecated and will be removed in a future version of pandas. See the What's New notes for pandas 2.1.0 for details. Specify future_stack=True to adopt the new implementation and silence this warning.","logger":"task.stderr"}
+{"timestamp":"2025-12-11T02:16:18.393569Z","level":"error","event":"  df_long = df_raw.stack(level=1).reset_index()","logger":"task.stderr"}
+{"timestamp":"2025-12-11T02:16:18.405235Z","level":"info","event":"📥 Reading raw stocks from /Users/chenjiexin/Desktop/try/data/raw/stocks.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405288Z","level":"info","event":"✅ Saved cleaned stocks to /Users/chenjiexin/Desktop/try/data/clean/stocks_clean.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405317Z","level":"info","event":"date       date ticker        open  ...       close   adj_close       volume","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405333Z","level":"info","event":"0    2023-01-03   AAPL  130.279999  ...  125.070000  123.211197  112117500.0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405347Z","level":"info","event":"1    2023-01-04   AAPL  126.889999  ...  126.360001  124.482040   89113600.0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405360Z","level":"info","event":"2    2023-01-05   AAPL  127.129997  ...  125.019997  123.161949   80962700.0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405377Z","level":"info","event":"3    2023-01-06   AAPL  126.010002  ...  129.619995  127.693588   87754700.0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405391Z","level":"info","event":"4    2023-01-09   AAPL  130.470001  ...  130.149994  128.215683   70790800.0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405403Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.405416Z","level":"info","event":"[5 rows x 8 columns]","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.426178Z","level":"info","event":"✅ Finished src/1_cleaning/clean_stocks.py, return code = 0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.426356Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":217}
+{"timestamp":"2025-12-11T02:16:18.431801Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.431837Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:16:18.432295Z","level":"info","event":"Task operator:<Task(PythonOperator): clean_stocks>","logger":"task.stdout"}

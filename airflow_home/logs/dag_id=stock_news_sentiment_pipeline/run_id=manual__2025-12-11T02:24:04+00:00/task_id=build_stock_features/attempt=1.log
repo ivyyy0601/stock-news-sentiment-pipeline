@@ -1,0 +1,25 @@
+{"timestamp":"2025-12-11T02:24:09.262016Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-11T02:24:09.262501Z","level":"info","event":"Filling up the DagBag from /Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-11T02:24:09.267174Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","lineno":10,"logger":"py.warnings"}
+{"timestamp":"2025-12-11T02:24:09.275992Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.276039Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.276242Z","level":"info","event":"Current task name:build_stock_features","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.276263Z","level":"info","event":"Dag name:stock_news_sentiment_pipeline","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.276847Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.276872Z","level":"info","event":"▶ Running script: /Users/chenjiexin/Desktop/try/src/2_features/build_stock_features.py","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.276888Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474611Z","level":"info","event":"📥 Reading cleaned stocks from /Users/chenjiexin/Desktop/try/data/clean/stocks_clean.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474690Z","level":"info","event":"✅ Saved stock features to /Users/chenjiexin/Desktop/try/data/features/stock_features.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474713Z","level":"info","event":"        date ticker        open  ...  roll_mean_5  roll_std_5  log_price","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474730Z","level":"info","event":"0 2023-01-13   AAPL  132.029999  ...     0.007836    0.008338   4.888522","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474744Z","level":"info","event":"1 2023-01-17   AAPL  134.830002  ...     0.008769    0.008071   4.897240","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474757Z","level":"info","event":"2 2023-01-18   AAPL  136.820007  ...     0.006804    0.010278   4.891856","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474770Z","level":"info","event":"3 2023-01-19   AAPL  134.080002  ...     0.002670    0.006573   4.892299","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474783Z","level":"info","event":"4 2023-01-20   AAPL  135.279999  ...     0.006634    0.009454   4.911338","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474795Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.474807Z","level":"info","event":"[5 rows x 15 columns]","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.495974Z","level":"info","event":"✅ Finished src/2_features/build_stock_features.py, return code = 0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.496198Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":217}
+{"timestamp":"2025-12-11T02:24:09.501313Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.501352Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:09.501830Z","level":"info","event":"Task operator:<Task(PythonOperator): build_stock_features>","logger":"task.stdout"}

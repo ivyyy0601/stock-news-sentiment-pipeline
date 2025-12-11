@@ -1,0 +1,38 @@
+{"timestamp":"2025-12-11T02:24:06.433696Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-11T02:24:06.434614Z","level":"info","event":"Filling up the DagBag from /Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-11T02:24:06.441344Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","lineno":10,"logger":"py.warnings"}
+{"timestamp":"2025-12-11T02:24:06.451588Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.451636Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.451933Z","level":"info","event":"Current task name:make_dataset_news","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.451954Z","level":"info","event":"Dag name:stock_news_sentiment_pipeline","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.452651Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.452674Z","level":"info","event":"▶ Running script: /Users/chenjiexin/Desktop/try/src/0_data/make_dataset_news.py","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.452691Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.980252Z","level":"info","event":"Fetching news from 2023-01-01 00:00:00 to 2025-12-10 21:24:06.690190","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.980733Z","level":"info","event":"[AAPL] Requesting from 20230101T0000 ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.980908Z","level":"info","event":"[AAPL] Got 1000 articles, last_time = 2025-10-14 00:13:00","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.980986Z","level":"info","event":"[AAPL] Sleeping 12 seconds before next request ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981011Z","level":"info","event":"[AAPL] Requesting from 20251014T0014 ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981030Z","level":"info","event":"[AAPL] Got 1000 articles, last_time = 2025-10-17 10:42:00","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981046Z","level":"info","event":"[AAPL] Sleeping 12 seconds before next request ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981061Z","level":"info","event":"[AAPL] Requesting from 20251017T1043 ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981074Z","level":"info","event":"[AAPL] Got 1000 articles, last_time = 2025-11-26 20:19:54","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981088Z","level":"info","event":"[AAPL] Sleeping 12 seconds before next request ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981102Z","level":"info","event":"[AAPL] Requesting from 20251126T2020 ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981115Z","level":"info","event":"[AAPL] Got 294 articles, last_time = 2025-12-11 00:10:38","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981129Z","level":"info","event":"[AAPL] last_time >= end_dt, stop fetching.","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981142Z","level":"info","event":"[GOOG] Requesting from 20230101T0000 ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981160Z","level":"info","event":"[GOOG] Got 1000 articles, last_time = 2025-09-30 18:11:00","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981179Z","level":"info","event":"[GOOG] Sleeping 12 seconds before next request ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981197Z","level":"info","event":"[GOOG] Requesting from 20250930T1812 ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981219Z","level":"info","event":"[GOOG] Got 1000 articles, last_time = 2025-11-02 12:00:00","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981232Z","level":"info","event":"[GOOG] Sleeping 12 seconds before next request ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981244Z","level":"info","event":"[GOOG] Requesting from 20251102T1201 ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981256Z","level":"info","event":"[GOOG] Got 769 articles, last_time = 2025-12-10 22:08:29","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981268Z","level":"info","event":"[GOOG] last_time >= end_dt, stop fetching.","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:25.981280Z","level":"info","event":"✅ Saved 6063 news rows to /Users/chenjiexin/Desktop/try/data/raw/news.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.009872Z","level":"info","event":"✅ Finished src/0_data/make_dataset_news.py, return code = 0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.010194Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":217}
+{"timestamp":"2025-12-11T02:25:26.015701Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.015748Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.016297Z","level":"info","event":"Task operator:<Task(PythonOperator): make_dataset_news>","logger":"task.stdout"}

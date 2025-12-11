@@ -1,0 +1,25 @@
+{"timestamp":"2025-12-11T02:25:26.371689Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-11T02:25:26.371956Z","level":"info","event":"Filling up the DagBag from /Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-11T02:25:26.375356Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","lineno":10,"logger":"py.warnings"}
+{"timestamp":"2025-12-11T02:25:26.382109Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.382176Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.382422Z","level":"info","event":"Current task name:clean_news","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.382439Z","level":"info","event":"Dag name:stock_news_sentiment_pipeline","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.383238Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.383255Z","level":"info","event":"▶ Running script: /Users/chenjiexin/Desktop/try/src/1_cleaning/clean_news.py","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.383268Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.622196Z","level":"info","event":"📥 Reading raw news from /Users/chenjiexin/Desktop/try/data/raw/news.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625246Z","level":"info","event":"✅ Saved cleaned news to /Users/chenjiexin/Desktop/try/data/clean/news_clean.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625284Z","level":"info","event":"  ticker      time_published  ... overall_sentiment_label        date","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625331Z","level":"info","event":"0   AAPL 2023-01-03 12:05:00  ...                 Neutral  2023-01-03","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625360Z","level":"info","event":"1   AAPL 2023-01-05 15:29:00  ...        Somewhat-Bullish  2023-01-05","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625378Z","level":"info","event":"2   AAPL 2023-01-12 02:31:00  ...        Somewhat-Bullish  2023-01-12","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625394Z","level":"info","event":"3   AAPL 2023-01-12 22:43:00  ...                 Neutral  2023-01-12","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625410Z","level":"info","event":"4   AAPL 2023-01-13 11:45:00  ...                 Bullish  2023-01-13","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625424Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.625439Z","level":"info","event":"[5 rows x 7 columns]","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.643155Z","level":"info","event":"✅ Finished src/1_cleaning/clean_news.py, return code = 0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.643412Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":217}
+{"timestamp":"2025-12-11T02:25:26.648713Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.648761Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:26.649199Z","level":"info","event":"Task operator:<Task(PythonOperator): clean_news>","logger":"task.stdout"}

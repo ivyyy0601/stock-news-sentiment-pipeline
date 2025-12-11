@@ -1,0 +1,25 @@
+{"timestamp":"2025-12-11T02:25:27.418182Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-11T02:25:27.418449Z","level":"info","event":"Filling up the DagBag from /Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-11T02:25:27.421576Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","lineno":10,"logger":"py.warnings"}
+{"timestamp":"2025-12-11T02:25:27.432835Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.432893Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.433224Z","level":"info","event":"Current task name:build_news_features","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.433269Z","level":"info","event":"Dag name:stock_news_sentiment_pipeline","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.434444Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.434479Z","level":"info","event":"▶ Running script: /Users/chenjiexin/Desktop/try/src/2_features/build_news_features.py","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.434498Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646225Z","level":"info","event":"📥 Reading cleaned news from /Users/chenjiexin/Desktop/try/data/clean/news_clean.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646320Z","level":"info","event":"✅ Saved news features to /Users/chenjiexin/Desktop/try/data/features/news_features.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646342Z","level":"info","event":"        date ticker  ...  sentiment_count  sentiment_index","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646359Z","level":"info","event":"0 2023-01-03   AAPL  ...                1         0.000693","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646373Z","level":"info","event":"1 2023-01-05   AAPL  ...                1         0.174110","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646387Z","level":"info","event":"2 2023-01-12   AAPL  ...                2         0.191456","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646400Z","level":"info","event":"3 2023-01-13   AAPL  ...                1         0.278905","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646413Z","level":"info","event":"4 2023-01-18   GOOG  ...                1         0.004755","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646426Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.646439Z","level":"info","event":"[5 rows x 7 columns]","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.672820Z","level":"info","event":"✅ Finished src/2_features/build_news_features.py, return code = 0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.673082Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":217}
+{"timestamp":"2025-12-11T02:25:27.678348Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.678416Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:27.678917Z","level":"info","event":"Task operator:<Task(PythonOperator): build_news_features>","logger":"task.stdout"}

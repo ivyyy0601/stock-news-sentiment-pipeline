@@ -1,0 +1,18 @@
+{"timestamp":"2025-12-11T02:24:06.435980Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-11T02:24:06.436479Z","level":"info","event":"Filling up the DagBag from /Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-11T02:24:06.441560Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","lineno":10,"logger":"py.warnings"}
+{"timestamp":"2025-12-11T02:24:06.449720Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.449786Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.450079Z","level":"info","event":"Current task name:make_dataset_stocks","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.450103Z","level":"info","event":"Dag name:stock_news_sentiment_pipeline","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.450946Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.450973Z","level":"info","event":"▶ Running script: /Users/chenjiexin/Desktop/try/src/0_data/make_dataset_stocks.py","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:06.450989Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:07.276987Z","level":"info","event":"Downloading AAPL ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:07.277091Z","level":"info","event":"Downloading GOOG ...","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:07.277113Z","level":"info","event":"✅ Saved 1472 rows to /Users/chenjiexin/Desktop/try/data/raw/stocks.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:07.308906Z","level":"info","event":"✅ Finished src/0_data/make_dataset_stocks.py, return code = 0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:07.309096Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":217}
+{"timestamp":"2025-12-11T02:24:07.316389Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:07.316420Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:24:07.316859Z","level":"info","event":"Task operator:<Task(PythonOperator): make_dataset_stocks>","logger":"task.stdout"}

@@ -1,0 +1,29 @@
+{"timestamp":"2025-12-11T02:25:28.432958Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-11T02:25:28.433218Z","level":"info","event":"Filling up the DagBag from /Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-11T02:25:28.436409Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","lineno":10,"logger":"py.warnings"}
+{"timestamp":"2025-12-11T02:25:28.442892Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.442944Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.443228Z","level":"info","event":"Current task name:prepare_data","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.443250Z","level":"info","event":"Dag name:stock_news_sentiment_pipeline","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.443930Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.443950Z","level":"info","event":"▶ Running script: /Users/chenjiexin/Desktop/try/src/3_models/00_prepare_data.py","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.443965Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669105Z","level":"info","event":"📥 Reading stock features from /Users/chenjiexin/Desktop/try/data/features/stock_features.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669225Z","level":"info","event":"📥 Reading news features from /Users/chenjiexin/Desktop/try/data/features/news_features.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669253Z","level":"info","event":"✅ Saved merged features to /Users/chenjiexin/Desktop/try/data/features/merged_features.csv","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669271Z","level":"info","event":"        date ticker  ...  sentiment_index  target_return_1d","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669286Z","level":"info","event":"0 2023-01-13   AAPL  ...         0.278905          0.008756","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669300Z","level":"info","event":"1 2023-01-17   AAPL  ...         0.000000         -0.005370","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669314Z","level":"info","event":"2 2023-01-18   AAPL  ...         0.000000          0.000444","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669327Z","level":"info","event":"3 2023-01-19   AAPL  ...         0.000693          0.019221","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669340Z","level":"info","event":"4 2023-01-20   AAPL  ...         0.000000          0.023500","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669356Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669369Z","level":"info","event":"[5 rows x 21 columns]","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669383Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669396Z","level":"info","event":"📐 Columns preview:","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.669414Z","level":"info","event":"['date', 'ticker', 'open', 'high', 'low', 'close', 'adj_close', 'volume', 'return_1d', 'return_lag_1', 'return_lag_3', 'return_lag_7', 'roll_mean_5', 'roll_std_5', 'log_price', 'sentiment_mean', 'sentiment_max', 'sentiment_min', 'sentiment_count', 'sentiment_index', 'target_return_1d']","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.694986Z","level":"info","event":"✅ Finished src/3_models/00_prepare_data.py, return code = 0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.695240Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":217}
+{"timestamp":"2025-12-11T02:25:28.702395Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.702458Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:25:28.702967Z","level":"info","event":"Task operator:<Task(PythonOperator): prepare_data>","logger":"task.stdout"}

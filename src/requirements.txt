@@ -1,0 +1,29 @@
+# Core utilities
+pandas
+numpy
+python-dateutil
+tqdm
+requests
+beautifulsoup4
+lxml
+
+# Machine Learning / Deep Learning
+scikit-learn
+tensorflow
+keras
+xgboost
+lightgbm
+
+# Model evaluation & plotting
+matplotlib
+
+# Time series / data sources
+yfinance
+
+# Airflow Operators (optional but recommended)
+apache-airflow-providers-http
+apache-airflow-providers-cncf-kubernetes
+apache-airflow-providers-sqlite
+
+# Joblib (often used in ML pipelines)
+joblib

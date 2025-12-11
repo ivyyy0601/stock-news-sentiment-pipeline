@@ -1,0 +1,80 @@
+{"timestamp":"2025-12-11T02:26:15.570069Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-11T02:26:15.570393Z","level":"info","event":"Filling up the DagBag from /Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-11T02:26:15.574637Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/Users/chenjiexin/Desktop/try/airflow_home/dags/stock_news_sentiment_dag.py","lineno":10,"logger":"py.warnings"}
+{"timestamp":"2025-12-11T02:26:15.583156Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.583222Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.583516Z","level":"info","event":"Current task name:compare_models","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.583561Z","level":"info","event":"Dag name:stock_news_sentiment_pipeline","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.584610Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.584662Z","level":"info","event":"▶ Running script: /Users/chenjiexin/Desktop/try/src/4_analysis/compare_models.py","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.584682Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775606Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775687Z","level":"info","event":"=== 📌 All Model Performance ===","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775709Z","level":"info","event":"                     model_name  use_sentiment        rmse         mae","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775728Z","level":"info","event":"0               lstm_price_only              0    0.036742    0.028236","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775745Z","level":"info","event":"1                gru_price_only              0    0.031761    0.024858","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775758Z","level":"info","event":"2                gru_price_only              0    0.027494    0.020658","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775772Z","level":"info","event":"3       att_cnn_lstm_price_only              0    0.031979    0.025187","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775791Z","level":"info","event":"4           lstm_with_sentiment              1    0.096815    0.067043","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775805Z","level":"info","event":"5            gru_with_sentiment              1    0.152227    0.079296","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775818Z","level":"info","event":"6   att_cnn_lstm_with_sentiment              1    0.043772    0.034723","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775837Z","level":"info","event":"7                  ma7_baseline              0  241.491258  239.384220","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775849Z","level":"info","event":"8                 ma14_baseline              0  239.649014  237.591024","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775861Z","level":"info","event":"9                xgb_price_only              0    0.018517    0.012984","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775874Z","level":"info","event":"10      att_cnn_lstm_price_only              0    0.021053    0.015563","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775886Z","level":"info","event":"11           gru_with_sentiment              1    0.152740    0.091576","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775917Z","level":"info","event":"12          lstm_with_sentiment              1    0.079415    0.052618","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775930Z","level":"info","event":"13  att_cnn_lstm_with_sentiment              1    0.046765    0.028966","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775942Z","level":"info","event":"14              lstm_price_only              0    0.023269    0.017819","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775960Z","level":"info","event":"15               gru_price_only              0    0.039008    0.030292","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775972Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775985Z","level":"info","event":"=== 🏆 Ranked by RMSE (Lower is Better) ===","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.775998Z","level":"info","event":"                     model_name  use_sentiment        rmse         mae","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776010Z","level":"info","event":"9                xgb_price_only              0    0.018517    0.012984","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776028Z","level":"info","event":"10      att_cnn_lstm_price_only              0    0.021053    0.015563","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776045Z","level":"info","event":"14              lstm_price_only              0    0.023269    0.017819","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776057Z","level":"info","event":"2                gru_price_only              0    0.027494    0.020658","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776072Z","level":"info","event":"1                gru_price_only              0    0.031761    0.024858","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776084Z","level":"info","event":"3       att_cnn_lstm_price_only              0    0.031979    0.025187","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776096Z","level":"info","event":"0               lstm_price_only              0    0.036742    0.028236","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776108Z","level":"info","event":"15               gru_price_only              0    0.039008    0.030292","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776124Z","level":"info","event":"6   att_cnn_lstm_with_sentiment              1    0.043772    0.034723","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776136Z","level":"info","event":"13  att_cnn_lstm_with_sentiment              1    0.046765    0.028966","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776147Z","level":"info","event":"12          lstm_with_sentiment              1    0.079415    0.052618","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776159Z","level":"info","event":"4           lstm_with_sentiment              1    0.096815    0.067043","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776176Z","level":"info","event":"5            gru_with_sentiment              1    0.152227    0.079296","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776188Z","level":"info","event":"11           gru_with_sentiment              1    0.152740    0.091576","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776200Z","level":"info","event":"8                 ma14_baseline              0  239.649014  237.591024","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776211Z","level":"info","event":"7                  ma7_baseline              0  241.491258  239.384220","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776226Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776238Z","level":"info","event":"=== 🏆 Ranked by MAE (Lower is Better) ===","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776250Z","level":"info","event":"                     model_name  use_sentiment        rmse         mae","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776265Z","level":"info","event":"9                xgb_price_only              0    0.018517    0.012984","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776276Z","level":"info","event":"10      att_cnn_lstm_price_only              0    0.021053    0.015563","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776292Z","level":"info","event":"14              lstm_price_only              0    0.023269    0.017819","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776304Z","level":"info","event":"2                gru_price_only              0    0.027494    0.020658","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776315Z","level":"info","event":"1                gru_price_only              0    0.031761    0.024858","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776327Z","level":"info","event":"3       att_cnn_lstm_price_only              0    0.031979    0.025187","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776338Z","level":"info","event":"0               lstm_price_only              0    0.036742    0.028236","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776350Z","level":"info","event":"13  att_cnn_lstm_with_sentiment              1    0.046765    0.028966","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776364Z","level":"info","event":"15               gru_price_only              0    0.039008    0.030292","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776376Z","level":"info","event":"6   att_cnn_lstm_with_sentiment              1    0.043772    0.034723","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776388Z","level":"info","event":"12          lstm_with_sentiment              1    0.079415    0.052618","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776399Z","level":"info","event":"4           lstm_with_sentiment              1    0.096815    0.067043","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776413Z","level":"info","event":"5            gru_with_sentiment              1    0.152227    0.079296","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776425Z","level":"info","event":"11           gru_with_sentiment              1    0.152740    0.091576","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776437Z","level":"info","event":"8                 ma14_baseline              0  239.649014  237.591024","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776448Z","level":"info","event":"7                  ma7_baseline              0  241.491258  239.384220","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776459Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776471Z","level":"info","event":"=== 🧠 Did Sentiment Features Improve Prediction? ===","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776483Z","level":"info","event":"🔹 No Sentiment Features: rmse    48.137010","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776495Z","level":"info","event":"mae     47.715084","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776507Z","level":"info","event":"dtype: float64","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776519Z","level":"info","event":"🔹 With Sentiment Features: rmse    0.095289","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776531Z","level":"info","event":"mae     0.059037","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.776542Z","level":"info","event":"dtype: float64","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.798888Z","level":"info","event":"✅ Finished src/4_analysis/compare_models.py, return code = 0","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.799128Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":217}
+{"timestamp":"2025-12-11T02:26:15.804946Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.805003Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-11T02:26:15.805571Z","level":"info","event":"Task operator:<Task(PythonOperator): compare_models>","logger":"task.stdout"}
