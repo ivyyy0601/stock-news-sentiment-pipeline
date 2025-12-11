@@ -1,14 +1,13 @@
 """
 00_baseline_moving_average.py
 
-功能：
-- 从 merged_features.csv 读取数据
-- 计算 MA7 / MA14 基础预测
-- 预测方式：下一日预测 = 当前 MA（shift 1）
-- 划分 train / val / test（按时间比例）
-- 评估 RMSE / MAE
-- 保存到：
-    - 指标：outputs/metrics.csv（追加一行或两行）
+Purpose:
+- Read data/features/merged_features.csv
+- Compute MA7 / MA14 baselines
+- Prediction: next-day forecast = current MA (shift by 1)
+- Split train / val / test by time proportion
+- Evaluate RMSE / MAE
+- Save metrics to outputs/metrics.csv (append rows)
 """
 
 from pathlib import Path
@@ -28,7 +27,7 @@ def main():
     outputs_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = outputs_dir / "metrics.csv"
 
-    print(f"📥 Reading merged features from {data_path}")
+    print(f"Reading merged features from {data_path}")
     df = pd.read_csv(data_path, parse_dates=["date"])
     df = df.sort_values(["date", "ticker"]).reset_index(drop=True)
 
@@ -84,7 +83,7 @@ def main():
         metrics_df = pd.DataFrame(rows)
 
     metrics_df.to_csv(metrics_path, index=False)
-    print(f"📈 Baseline metrics written → {metrics_path}")
+    print(f"Baseline metrics written → {metrics_path}")
     print(metrics_df.tail())
 
 

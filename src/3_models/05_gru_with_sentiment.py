@@ -1,11 +1,11 @@
 """
 05_gru_with_sentiment.py
 
-功能：
-- 使用 价格特征 + 情绪特征
-- GRU 模型
-- 训练并把结果追加写入 outputs/metrics.csv
-- 保存模型为 outputs/gru_with_sentiment.h5
+Purpose:
+- Use price features + sentiment features
+- GRU model
+- Train and append results to outputs/metrics.csv
+- Save model to outputs/gru_with_sentiment.h5
 """
 
 from pathlib import Path
@@ -40,10 +40,10 @@ def main():
     model_path = outputs_dir / "gru_with_sentiment.h5"
     metrics_path = outputs_dir / "metrics.csv"
 
-    print(f"📥 Reading merged features from {data_path}")
+    print(f"Reading merged features from {data_path}")
     df = pd.read_csv(data_path, parse_dates=["date"])
 
-    # 价格特征
+    # Price features
     price_cols = [
         "open",
         "high",
@@ -61,7 +61,7 @@ def main():
     ]
     price_cols = [c for c in price_cols if c in df.columns]
 
-    # 情绪特征
+    # Sentiment features
     sentiment_cols = [
         "sentiment_mean",
         "sentiment_max",
@@ -74,7 +74,7 @@ def main():
     feature_cols = price_cols + sentiment_cols
     target_col = "target_return_1d"
 
-    print("✅ 使用的特征列（Price + Sentiment）：", feature_cols)
+    print("Using feature columns (Price + Sentiment):", feature_cols)
 
     df = df.sort_values(["date", "ticker"]).reset_index(drop=True)
 
@@ -89,7 +89,7 @@ def main():
     X_val_raw, y_val_raw = X_all[train_end:val_end], y_all[train_end:val_end]
     X_test_raw, y_test_raw = X_all[val_end:], y_all[val_end:]
 
-    print(f"📊 样本数：train={len(X_train_raw)}, val={len(X_val_raw)}, test={len(X_test_raw)}")
+    print(f"Samples: train={len(X_train_raw)}, val={len(X_val_raw)}, test={len(X_test_raw)}")
 
     scaler = StandardScaler()
     scaler.fit(X_train_raw)
@@ -105,7 +105,7 @@ def main():
 
     num_features = X_train_seq.shape[-1]
 
-    # 🟢 GRU + Sentiment 模型
+    # GRU + Sentiment model
     model = keras.Sequential(
         [
             layers.Input(shape=(lookback, num_features)),
@@ -141,10 +141,10 @@ def main():
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
     mae = mean_absolute_error(y_test, y_pred)
 
-    print(f"✅ GRU + Sentiment Test RMSE = {rmse:.6f}, MAE = {mae:.6f}")
+    print(f"GRU + Sentiment Test RMSE = {rmse:.6f}, MAE = {mae:.6f}")
 
     model.save(model_path)
-    print(f"💾 模型已保存到 {model_path}")
+    print(f"Model saved to {model_path}")
 
     row = {
         "model_name": "gru_with_sentiment",
@@ -160,7 +160,7 @@ def main():
         metrics_df = pd.DataFrame([row])
 
     metrics_df.to_csv(metrics_path, index=False)
-    print(f"📈 指标已写入 {metrics_path}")
+    print(f"Metrics written to {metrics_path}")
     print(metrics_df.tail())
 
 

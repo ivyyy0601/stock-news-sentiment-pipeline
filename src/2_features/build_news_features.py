@@ -1,11 +1,11 @@
 """
 build_news_features.py
 
-功能：
-- 读取 data/clean/news_clean.csv
-- 按 (date, ticker) 聚合 overall_sentiment_score
-- 生成日级情绪特征
-- 保存到 data/features/news_features.csv
+Purpose:
+- Read data/clean/news_clean.csv
+- Aggregate overall_sentiment_score by (date, ticker)
+- Generate daily sentiment features
+- Save to data/features/news_features.csv
 """
 
 from pathlib import Path
@@ -28,17 +28,17 @@ def main():
     print(f"📥 Reading cleaned news from {clean_path}")
     df = pd.read_csv(clean_path, parse_dates=["time_published"])
 
-    # 确保有 date 列；你之前的 clean 里已经加过 date，这里再保险一下
+    # Ensure a date column exists; clean step already adds it, but double-check
     if "date" not in df.columns:
         df["date"] = df["time_published"].dt.date
 
-    # 转回 datetime64[ns] 方便 merge
+    # Convert to datetime64[ns] for easier merging
     df["date"] = pd.to_datetime(df["date"])
 
-    # 只保留我们需要的列（减少内存）
+    # Keep only needed columns (reduce memory)
     df = df[["date", "ticker", "overall_sentiment_score"]].copy()
 
-    # 1. 按 date + ticker 聚合
+    # 1. Aggregate by date + ticker
     agg = (
         df.groupby(["date", "ticker"])["overall_sentiment_score"]
         .agg(["mean", "max", "min", "count"])
@@ -54,14 +54,14 @@ def main():
         }
     )
 
-    # 2. 设计一个简单的情绪强度指数：均值 * log(1 + 新闻条数)
+    # 2. Simple sentiment intensity index: mean * log(1 + count)
     agg["sentiment_index"] = (
         agg["sentiment_mean"] * np.log1p(agg["sentiment_count"])
     )
 
-    # 3. 保存
+    # 3. Save features
     agg.to_csv(output_path, index=False)
-    print(f"✅ Saved news features to {output_path}")
+    print(f"Saved news features to {output_path}")
     print(agg.head())
 
 

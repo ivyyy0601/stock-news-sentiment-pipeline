@@ -9,16 +9,16 @@ import os
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-# ======== 项目路径 & Python 路径 ========
+# ======== Project path & Python path ========
 # Prefer env var PROJECT_DIR; fallback to repository root relative to this file.
 PROJECT_DIR = Path(os.environ.get("PROJECT_DIR", Path(__file__).resolve().parent)).resolve()
-PYTHON_BIN = sys.executable  # 当前 venv 里的 python
+PYTHON_BIN = sys.executable  # Python from current virtual environment
 
 
 def run_script(script_rel_path: str) -> None:
     """
-    在 PROJECT_DIR 下，用当前虚拟环境的 python 运行一个脚本。
-    script_rel_path 例如: 'src/0_data/make_dataset_news.py'
+    Run a project script using the current virtualenv's Python.
+    script_rel_path e.g.: 'src/0_data/make_dataset_news.py'
     """
     script_path = PROJECT_DIR / script_rel_path
     if not script_path.exists():
@@ -28,20 +28,20 @@ def run_script(script_rel_path: str) -> None:
     print(f"▶ Running script: {script_path}")
     print("=" * 80)
 
-    # 传递当前环境变量到子进程；不硬编码 API key，改为读取环境变量
+    # Pass current environment variables to the subprocess; do not hardcode API keys
     env = os.environ.copy()
 
     result = subprocess.run(
         [PYTHON_BIN, str(script_path)],
-        cwd=PROJECT_DIR,   # 在项目根目录下执行，方便脚本用相对路径
+        cwd=PROJECT_DIR,   # Run in project root for relative paths
         check=True,
         env=env,
     )
 
-    print(f"✅ Finished {script_rel_path}, return code = {result.returncode}")
+    print(f"Finished {script_rel_path}, return code = {result.returncode}")
 
 
-# ======== 默认参数 ========
+# ======== Default args ========
 default_args = {
     "owner": "ivy",
     "depends_on_past": False,
@@ -49,17 +49,17 @@ default_args = {
     "retry_delay": timedelta(minutes=5),
 }
 
-# ======== DAG 定义 ========
+# ======== DAG definition ========
 with DAG(
     dag_id="stock_news_sentiment_pipeline",
     description="End-to-end pipeline: data -> cleaning -> features -> models -> analysis",
     default_args=default_args,
     start_date=datetime(2025, 12, 1),
-    schedule=None,      # 手动触发；以后要定时可以改成 '0 8 * * *' 之类
+    schedule=None,      # Manual trigger; can change to '0 8 * * *' for scheduling later
     catchup=False,
 ) as dag:
 
-    # 0️⃣ 原始数据构建
+    # Build raw datasets
     make_dataset_stocks = PythonOperator(
         task_id="make_dataset_stocks",
         python_callable=run_script,
@@ -72,7 +72,7 @@ with DAG(
         op_kwargs={"script_rel_path": "src/0_data/make_dataset_news.py"},
     )
 
-    # 1️⃣ 清洗
+    # Cleaning
     clean_news = PythonOperator(
         task_id="clean_news",
         python_callable=run_script,
@@ -85,7 +85,7 @@ with DAG(
         op_kwargs={"script_rel_path": "src/1_cleaning/clean_stocks.py"},
     )
 
-    # 2️⃣ 特征工程
+    # Feature engineering
     build_news_features = PythonOperator(
         task_id="build_news_features",
         python_callable=run_script,
@@ -98,14 +98,14 @@ with DAG(
         op_kwargs={"script_rel_path": "src/2_features/build_stock_features.py"},
     )
 
-    # 2.5️⃣ 准备最终训练用的数据
+    # Prepare final training data
     prepare_data = PythonOperator(
         task_id="prepare_data",
         python_callable=run_script,
         op_kwargs={"script_rel_path": "src/3_models/00_prepare_data.py"},
     )
 
-    # 3️⃣ 六个模型（逻辑上并行；默认 SequentialExecutor 会一个个跑）
+    # Six models (logically parallel; SequentialExecutor runs them sequentially)
     lstm_price_only = PythonOperator(
         task_id="lstm_price_only",
         python_callable=run_script,
@@ -151,7 +151,7 @@ with DAG(
         att_cnn_lstm_with_sentiment,
     ]
 
-    # 4️⃣ 对比和画图
+    # Comparison and plotting
     compare_models = PythonOperator(
         task_id="compare_models",
         python_callable=run_script,
@@ -164,16 +164,16 @@ with DAG(
         op_kwargs={"script_rel_path": "src/4_analysis/plot_results.py"},
     )
 
-    # ======== 依赖关系 ========
+    # ======== Dependencies ========
 
-    # 股票数据链：0_data -> cleaning -> features -> prepare
+    # Stock data chain: 0_data -> cleaning -> features -> prepare
     make_dataset_stocks >> clean_stocks >> build_stock_features >> prepare_data
 
-    # 新闻数据链：0_data -> cleaning -> features -> prepare
+    # News data chain: 0_data -> cleaning -> features -> prepare
     make_dataset_news >> clean_news >> build_news_features >> prepare_data
 
-    # 准备好训练数据后，跑 6 个模型
+    # After data is prepared, run 6 models
     prepare_data >> model_tasks
 
-    # 6 个模型跑完，再做对比和画图
+    # After all models finish, run comparison and plotting
     model_tasks >> compare_models >> plot_results

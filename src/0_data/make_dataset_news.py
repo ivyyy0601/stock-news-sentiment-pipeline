@@ -1,15 +1,10 @@
 """
-make_dataset_news.py  — 使用 Alpha Vantage NEWS_SENTIMENT 拉多年的新闻
+make_dataset_news.py — Fetch multi-year news using Alpha Vantage NEWS_SENTIMENT
 
-功能：
-- 对多个 ticker（如 AAPL, GOOG）从指定起始日期开始，沿时间轴不断向后抓新闻
-- 自动更新 time_from，直到接近当前时间或 API 不再返回数据
-- 保存为 data/raw/news.csv，后续用于清洗、FinBERT 情绪分析、特征工程
-
-注意：
-- 需要环境变量 ALPHAVANTAGE_API_KEY
-  在终端中先执行：
-    export ALPHAVANTAGE_API_KEY="你的_api_key"
+Purpose:
+- For multiple tickers (e.g., AAPL, GOOG), pull news from a given start date forward along the timeline
+- Automatically advance time_from until near the current time or the API returns no more data
+- Save to data/raw/news.csv for subsequent cleaning, FinBERT sentiment analysis, and feature engineering
 """
 
 import os
@@ -22,8 +17,8 @@ import requests
 
 
 def get_project_root() -> Path:
-    # 假设当前文件在 TRY/src/0_data/make_dataset_news.py
-    # parents[2] 就是项目根目录 TRY/
+    # Assume this file is at <project>/src/0_data/make_dataset_news.py
+    # parents[2] resolves to the project root
     return Path(__file__).resolve().parents[2]
 
 
@@ -36,16 +31,16 @@ def fetch_articles_for_ticker(
     sleep_sec: int = 12,
 ) -> pd.DataFrame:
     """
-    使用 Alpha Vantage NEWS_SENTIMENT 接口，沿时间轴从 start_dt 拉到 end_dt 附近。
-    - ticker: 例如 "AAPL", "GOOG"
-    - start_dt: 起始时间（datetime）
-    - end_dt: 结束时间（datetime）
-    - limit: 每次请求最多返回多少条（1-1000）
-    - sleep_sec: 为了避免频率限制，两次请求之间的等待秒数
+    Use Alpha Vantage NEWS_SENTIMENT API to fetch news from start_dt up to end_dt.
+    - ticker: e.g., "AAPL", "GOOG"
+    - start_dt: start time (datetime)
+    - end_dt: end time (datetime)
+    - limit: max items per request (1–1000)
+    - sleep_sec: delay between requests to avoid rate limits
 
-    返回：
-    - 包含多行新闻记录的 DataFrame，每行包括：
-      ticker, time_published, title, summary, overall_sentiment_score, overall_sentiment_label
+    Returns:
+    - A DataFrame with multiple news records, including:
+        ticker, time_published, title, summary, overall_sentiment_score, overall_sentiment_label
     """
     url = "https://www.alphavantage.co/query"
     all_records = []
@@ -53,7 +48,7 @@ def fetch_articles_for_ticker(
     current_start = start_dt
 
     while True:
-        # 如果已经超过结束时间，就退出
+        # If already past end time, stop
         if current_start >= end_dt:
             print(f"[{ticker}] Reached end_dt {end_dt}, stop fetching.")
             break
@@ -62,7 +57,7 @@ def fetch_articles_for_ticker(
             "function": "NEWS_SENTIMENT",
             "tickers": ticker,
             "time_from": current_start.strftime("%Y%m%dT%H%M"),
-            "sort": "EARLIEST",  # 从最早的新闻往后给
+            "sort": "EARLIEST",  # Return earliest first and move forward
             "limit": limit,
             "apikey": api_key,
         }
@@ -76,7 +71,7 @@ def fetch_articles_for_ticker(
             print(f"[{ticker}] Request failed: {e}")
             break
 
-        # 频率限制或其它提示信息
+        # Rate limit or other informational messages
         if "Information" in data:
             print(f"[{ticker}] Information from API: {data['Information']}")
             break
@@ -84,7 +79,7 @@ def fetch_articles_for_ticker(
             print(f"[{ticker}] Note from API (rate limit?): {data['Note']}")
             break
 
-        # 如果 items == '0'，说明没有更多新闻可拉
+        # If items == '0', there is no more news to fetch
         if data.get("items") == "0":
             print(f"[{ticker}] No more articles to extract (items=0).")
             break
@@ -94,11 +89,11 @@ def fetch_articles_for_ticker(
             print(f"[{ticker}] No 'feed' field in response, raw data: {data}")
             break
 
-        # 解析这批新闻，并记录最后一条新闻的时间
+        # Parse the batch and remember the time of the last article
         last_time = None
 
         for item in feed:
-            time_published = item.get("time_published")  # 格式类似 '20240507T022200'
+            time_published = item.get("time_published")  # e.g., "20230103T120500"
             title = item.get("title")
             summary = item.get("summary")
             overall_score = item.get("overall_sentiment_score")
@@ -115,12 +110,12 @@ def fetch_articles_for_ticker(
                 }
             )
 
-            # 转成 datetime，用于下一轮的起点
+            # Convert to datetime for the next start point
             if time_published:
                 try:
                     last_time = datetime.strptime(time_published, "%Y%m%dT%H%M%S")
                 except ValueError:
-                    # 万一格式怪，就跳过，不更新 last_time
+                    # If format is unexpected, skip without updating last_time
                     pass
 
         if last_time is None:
@@ -129,16 +124,15 @@ def fetch_articles_for_ticker(
 
         print(f"[{ticker}] Got {len(feed)} articles, last_time = {last_time}")
 
-        # 如果 last_time 已经接近或超过 end_dt，就可以停止了
+        # If last_time is at/after end_dt, we can stop
         if last_time >= end_dt:
             print(f"[{ticker}] last_time >= end_dt, stop fetching.")
             break
 
-        # 更新下一轮的起点：last_time + 1 分钟
-        # 避免重复抓到同一条新闻
+        # Advance next start to last_time + 1 minute to avoid duplicates
         current_start = last_time + timedelta(minutes=1)
 
-        # 适当等待，避免触发 API 频率限制
+        # Wait to avoid hitting API rate limits
         print(f"[{ticker}] Sleeping {sleep_sec} seconds before next request ...")
         time.sleep(sleep_sec)
 
@@ -147,32 +141,30 @@ def fetch_articles_for_ticker(
         return pd.DataFrame()
 
     df = pd.DataFrame(all_records)
-    # 把 time_published 转成 datetime
+    # Convert time_published to datetime
     df["time_published"] = pd.to_datetime(
         df["time_published"], format="%Y%m%dT%H%M%S", errors="coerce"
     )
-    # 丢掉解析失败的
+    # Drop rows with failed datetime parsing
     df = df.dropna(subset=["time_published"]).reset_index(drop=True)
     return df
 
 
 def main():
-    # 1. 读取 API Key
+    # 1. Read API Key
     api_key = os.getenv("ALPHAVANTAGE_API_KEY")
     if not api_key:
         raise ValueError(
-            "环境变量 ALPHAVANTAGE_API_KEY 未设置，请先在终端中执行：\n"
-            'export ALPHAVANTAGE_API_KEY="你的_api_key"'
+            "Environment variable ALPHAVANTAGE_API_KEY not set. Please run:\n"
+            'export ALPHAVANTAGE_API_KEY="your_api_key"'
         )
 
-    # 2. 设置时间范围：从 2023-01-01 拉到“现在”
-    #    你可以根据需要调整起始时间
+    # 2. Set time range: from 2023-01-01 to now (adjust as needed)
     start_dt = datetime(2023, 1, 1, 0, 0)
     end_dt = datetime.now()
     print(f"Fetching news from {start_dt} to {end_dt}")
 
-    # 3. 配置要拉哪些标的的新闻
-    #    你之前 stock 那边有 AAPL / 指数，可以先从个股开始，比如 AAPL, GOOG
+    # 3. Configure tickers to fetch; start with single stocks, e.g., AAPL, GOOG
     tickers = ["AAPL", "GOOG"]
 
     all_dfs = []
@@ -183,18 +175,18 @@ def main():
             start_dt=start_dt,
             end_dt=end_dt,
             api_key=api_key,
-            limit=1000,      # 每次最多 1000 条
-            sleep_sec=12,    # 避免触发 rate limit，必要时可以再调大
+            limit=1000,      # up to 1000 per request
+            sleep_sec=12,    # avoid rate limit; increase if needed
         )
         if not df_ticker.empty:
             all_dfs.append(df_ticker)
 
     if not all_dfs:
-        raise ValueError("没有成功获取到任何新闻，请检查 API Key 或配额限制。")
+        raise ValueError("No news fetched. Check API key or quota limits.")
 
     news_df = pd.concat(all_dfs, axis=0, ignore_index=True)
 
-    # 4. 保存到 data/raw/news.csv
+    # 4. Save to data/raw/news.csv
     project_root = get_project_root()
     raw_dir = project_root / "data" / "raw"
     raw_dir.mkdir(parents=True, exist_ok=True)

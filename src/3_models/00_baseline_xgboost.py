@@ -1,14 +1,14 @@
 """
 00_baseline_xgboost.py
 
-功能：
-- 读取 merged_features.csv
-- 只使用价格相关特征训练 XGBoost
-- 按时间划分 train/val/test（与 LSTM 对齐）
-- 评估 RMSE / MAE
-- 保存：
-    - 模型：outputs/xgb_price_only.json
-    - 指标：outputs/metrics.csv（追加）
+Purpose:
+- Read merged_features.csv
+- Train XGBoost using price-related features only
+- Time-based split train/val/test (aligned with LSTM)
+- Evaluate RMSE / MAE
+- Save:
+    - Model: outputs/xgb_price_only.json
+    - Metrics: outputs/metrics.csv (append)
 """
 
 from pathlib import Path
@@ -31,7 +31,7 @@ def main():
     model_path = outputs_dir / "xgb_price_only.json"
     metrics_path = outputs_dir / "metrics.csv"
 
-    print(f"📥 Reading merged features from {data_path}")
+    print(f"Reading merged features from {data_path}")
     df = pd.read_csv(data_path, parse_dates=["date"])
     df = df.sort_values(["date", "ticker"]).reset_index(drop=True)
 
@@ -79,12 +79,11 @@ def main():
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
     mae = mean_absolute_error(y_test, y_pred)
 
-    print(f"✅ XGBoost Test RMSE={rmse:.6f}, MAE={mae:.6f}")
+    print(f"XGBoost Test RMSE={rmse:.6f}, MAE={mae:.6f}")
 
     # ---- Save model ----
     model.save_model(model_path)
-    print(f"💾 模型已保存到 {model_path}")
-
+    print(f"Model saved to {model_path}")
     # ---- Append metrics.csv ----
     row = {
         "model_name": "xgb_price_only",
@@ -100,7 +99,7 @@ def main():
         metrics_df = pd.DataFrame([row])
 
     metrics_df.to_csv(metrics_path, index=False)
-    print(f"📈 指标已写入 {metrics_path}")
+    print(f"Metrics written to {metrics_path}")
     print(metrics_df.tail())
 
 

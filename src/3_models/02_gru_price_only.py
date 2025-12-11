@@ -1,10 +1,10 @@
 """
 02_gru_price_only.py
 
-功能：
-- 使用和 LSTM 相同的价格特征
-- 模型改为 GRU
-- 训练并在 outputs/metrics.csv 追加一行 gru_price_only
+Purpose:
+- Use the same price-only features as the LSTM counterpart
+- Switch model architecture to GRU
+- Train and append a row 'gru_price_only' to outputs/metrics.csv
 """
 
 from pathlib import Path
@@ -37,7 +37,7 @@ def main():
     model_path = outputs_dir / "gru_price_only.h5"
     metrics_path = outputs_dir / "metrics.csv"
 
-    print(f"📥 Reading merged features from {data_path}")
+    print(f"Reading merged features from {data_path}")
     df = pd.read_csv(data_path, parse_dates=["date"])
 
     price_feature_cols = [
@@ -71,7 +71,7 @@ def main():
     X_val_raw, y_val_raw = X_all[train_end:val_end], y_all[train_end:val_end]
     X_test_raw, y_test_raw = X_all[val_end:], y_all[val_end:]
 
-    print(f"📊 样本数：train={len(X_train_raw)}, val={len(X_val_raw)}, test={len(X_test_raw)}")
+    print(f"Samples: train={len(X_train_raw)}, val={len(X_val_raw)}, test={len(X_test_raw)}")
 
     scaler = StandardScaler()
     scaler.fit(X_train_raw)
@@ -87,7 +87,7 @@ def main():
 
     num_features = X_train_seq.shape[-1]
 
-    # 🟢 GRU 模型
+    # GRU model
     model = keras.Sequential(
         [
             layers.Input(shape=(lookback, num_features)),
@@ -123,10 +123,10 @@ def main():
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
     mae = mean_absolute_error(y_test, y_pred)
 
-    print(f"✅ GRU Price-only Test RMSE = {rmse:.6f}, MAE = {mae:.6f}")
+    print(f"GRU Price-only Test RMSE = {rmse:.6f}, MAE = {mae:.6f}")
 
     model.save(model_path)
-    print(f"💾 模型已保存到 {model_path}")
+    print(f"💾 Model saved to {model_path}")
 
     row = {
         "model_name": "gru_price_only",
@@ -142,7 +142,7 @@ def main():
         metrics_df = pd.DataFrame([row])
 
     metrics_df.to_csv(metrics_path, index=False)
-    print(f"📈 指标已写入 {metrics_path}")
+    print(f"Metrics written to {metrics_path}")
     print(metrics_df.tail())
 
 

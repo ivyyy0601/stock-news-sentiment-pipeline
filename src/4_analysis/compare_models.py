@@ -15,7 +15,7 @@ print(df.sort_values("rmse"))
 print("\n=== 🏆 Ranked by MAE (Lower is Better) ===")
 print(df.sort_values("mae"))
 
-# === 🧠 情绪特征是否提升预测？ ===
+# === 🧠 Do sentiment features improve prediction? ===
 print("\n=== 🧠 Did Sentiment Features Improve Prediction? ===")
 mean_no_sent = df[df.use_sentiment == 0][["rmse", "mae"]].mean()
 mean_with_sent = df[df.use_sentiment == 1][["rmse", "mae"]].mean()

@@ -1,15 +1,15 @@
 """
 01_lstm_price_only.py
 
-功能：
-- 从 merged_features.csv 读取数据
-- 只使用“价格相关特征”作为输入 X（不含情绪）
-- 做时间序列切片（LSTM 输入：样本数 × lookback × 特征数）
-- 划分 train / val / test
-- 训练 LSTM 模型，评估 RMSE
-- 保存：
-    - 模型：outputs/lstm_price_only.h5
-    - 指标：outputs/metrics.csv（追加一行）
+Purpose:
+- Read merged_features.csv
+- Use price-related features only (no sentiment) as input X
+- Build time-series sequences (LSTM input: samples × lookback × features)
+- Split train / val / test
+- Train LSTM and evaluate RMSE/MAE
+- Save:
+    - Model: outputs/lstm_price_only.h5
+    - Metrics: outputs/metrics.csv (append a row)
 """
 
 from pathlib import Path
@@ -22,7 +22,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 
-# ====== 基础工具 ======
+# ====== Utilities ======
 
 def get_project_root() -> Path:
     return Path(__file__).resolve().parents[2]
@@ -30,7 +30,7 @@ def get_project_root() -> Path:
 
 def create_sequences(X, y, lookback: int):
     """
-    把按时间排序好的 2D 特征 + 1D 目标，切成 LSTM 需要的 3D 序列。
+    Slice time-ordered 2D features + 1D targets into 3D sequences required by LSTM.
     X: (N, num_features)
     y: (N,)
     return:
@@ -44,7 +44,7 @@ def create_sequences(X, y, lookback: int):
     return np.array(Xs), np.array(ys)
 
 
-# ====== 主流程 ======
+# ====== Main flow ======
 
 def main():
     project_root = get_project_root()
@@ -57,8 +57,8 @@ def main():
     print(f"📥 Reading merged features from {data_path}")
     df = pd.read_csv(data_path, parse_dates=["date"])
 
-    # 1. 选择特征列（只用价格 / 技术相关，不含 sentiment）
-    # 你可以根据自己在 stock_features 里生成的列名调整一下
+    # 1. Select feature columns (price/technical only, no sentiment)
+    # Adjust based on columns generated in stock_features if needed
     price_feature_cols = [
         "open",
         "high",
@@ -75,21 +75,21 @@ def main():
         "log_price",
     ]
 
-    # 确保这些列都在 df 里
+    # Ensure these columns exist in df
     price_feature_cols = [c for c in price_feature_cols if c in df.columns]
-    print("✅ 使用的 Price 特征列：", price_feature_cols)
+    print("Using price feature columns:", price_feature_cols)
 
-    # 目标变量
+    # Target variable
     target_col = "target_return_1d"
 
-    # 2. 按日期排序（已经含有多个 ticker，一起按时间排）
+    # 2. Sort by date (multiple tickers included; keep temporal order)
     df = df.sort_values(["date", "ticker"]).reset_index(drop=True)
 
-    # 3. 取出特征和目标
+    # 3. Extract features and target
     X_all = df[price_feature_cols].values.astype(float)
     y_all = df[target_col].values.astype(float)
 
-    # 4. Train / Val / Test 按时间比例切分（例如 70% / 15% / 15%）
+    # 4. Train/Val/Test split by time proportion (e.g., 70%/15%/15%)
     n = len(df)
     train_end = int(n * 0.7)
     val_end = int(n * 0.85)
@@ -98,9 +98,9 @@ def main():
     X_val_raw, y_val_raw = X_all[train_end:val_end], y_all[train_end:val_end]
     X_test_raw, y_test_raw = X_all[val_end:], y_all[val_end:]
 
-    print(f"📊 样本数：train={len(X_train_raw)}, val={len(X_val_raw)}, test={len(X_test_raw)}")
+    print(f"Samples: train={len(X_train_raw)}, val={len(X_val_raw)}, test={len(X_test_raw)}")
 
-    # 5. 对特征标准化（只在 train 上 fit）
+    # 5. Standardize features (fit on train only)
     scaler = StandardScaler()
     scaler.fit(X_train_raw)
 
@@ -108,16 +108,16 @@ def main():
     X_val_scaled = scaler.transform(X_val_raw)
     X_test_scaled = scaler.transform(X_test_raw)
 
-    # 6. 构造时间序列切片
-    lookback = 20  # 用过去 20 天的数据预测下一天
+    # 6. Build time-series slices
+    lookback = 20  # use past 20 days to predict next day
 
     X_train_seq, y_train = create_sequences(X_train_scaled, y_train_raw, lookback)
     X_val_seq, y_val = create_sequences(X_val_scaled, y_val_raw, lookback)
     X_test_seq, y_test = create_sequences(X_test_scaled, y_test_raw, lookback)
 
-    print("📐 LSTM 输入维度：", X_train_seq.shape)
+    print("LSTM input shape:", X_train_seq.shape)
 
-    # 7. 定义 LSTM 模型（价格-only）
+    # 7. Define LSTM model (price-only)
     num_features = X_train_seq.shape[-1]
 
     model = keras.Sequential(
@@ -125,7 +125,7 @@ def main():
             layers.Input(shape=(lookback, num_features)),
             layers.LSTM(64, return_sequences=False),
             layers.Dense(32, activation="relu"),
-            layers.Dense(1, activation="linear"),  # 回归
+            layers.Dense(1, activation="linear"),  # regression
         ]
     )
 
@@ -137,7 +137,7 @@ def main():
 
     model.summary()
 
-    # 8. 训练
+    # 8. Train
     callbacks = [
         keras.callbacks.EarlyStopping(
             monitor="val_loss", patience=5, restore_best_weights=True
@@ -154,18 +154,17 @@ def main():
         verbose=1,
     )
 
-    # 9. 在 test 集上评估 RMSE / MAE
+    # 9. Evaluate RMSE / MAE on test set
     y_pred = model.predict(X_test_seq).ravel()
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
     mae = mean_absolute_error(y_test, y_pred)
 
-    print(f"✅ Test RMSE = {rmse:.6f}, MAE = {mae:.6f}")
+    print(f"Test RMSE = {rmse:.6f}, MAE = {mae:.6f}")
 
-    # 10. 保存模型
+    # 10. Save model
     model.save(model_path)
-    print(f"💾 模型已保存到 {model_path}")
-
-    # 11. 记录 metrics.csv（追加模式）
+    print(f"Model saved to {model_path}")
+    # 11. Log metrics.csv (append mode)
     row = {
         "model_name": "lstm_price_only",
         "use_sentiment": 0,
@@ -180,7 +179,7 @@ def main():
         metrics_df = pd.DataFrame([row])
 
     metrics_df.to_csv(metrics_path, index=False)
-    print(f"📈 指标已写入 {metrics_path}")
+    print(f"Metrics written to {metrics_path}")
     print(metrics_df.tail())
 
 
