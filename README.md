@@ -1,5 +1,6 @@
 # 📈 AI Trader for Stock Price Prediction
 *EECS6893 Big Data Analytics Final Project (Fall 2025)
+
 *A full machine learning pipeline combining stock price data, news sentiment analysis, feature engineering, and deep learning models automated with Apache Airflow.*
 
 ## 🧭 Table of Contents
